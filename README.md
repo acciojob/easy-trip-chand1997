@@ -25,6 +25,10 @@ POST API
 ![Screenshot (8)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/9e16c355-a2eb-4dd5-ae50-f20faa20cf72)
 
 
+7) @GetMapping("/calculate-fare")
+![Screenshot (9)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/d7f33c26-fab7-4f96-a942-b3984d7f3976)
+
+
 
 
 
