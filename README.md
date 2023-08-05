@@ -13,4 +13,9 @@ POST API
 ![Screenshot (5)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/2f6be9c5-f5bd-4df6-827b-1af3bb2d896b)
 
 
+4) @GetMapping("/get-shortest-time-travel-between-cities")
+![Screenshot (6)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/b25eca8c-e8be-486f-a81d-6d1ba8edc70a)
+
+
+
 
