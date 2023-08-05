@@ -41,7 +41,9 @@ POST API
 ![Screenshot (12)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/cac39027-0556-48af-82fa-d7c7927c99a1)
 
 
+11)@GetMapping("/get-number-of-people-on-airport-on/{date}")
 
 
 
-
+12)@PutMapping("/cancel-a-ticket")
+![Screenshot (13)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/001b8f21-baeb-4bc0-a8e3-4b6caee48389)
