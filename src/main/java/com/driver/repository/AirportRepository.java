@@ -5,16 +5,11 @@ import com.driver.model.City;
 import com.driver.model.Flight;
 import com.driver.model.Passenger;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 import java.util.*;
 
 @Repository
 public class AirportRepository {
-//    HashMap<airportName,Airport>
+    //    HashMap<airportName,Airport>
     HashMap<String, Airport> airportDb=new HashMap<>();
 
     //    HashMap<flightId,Flight>
@@ -35,19 +30,23 @@ public class AirportRepository {
     public String getLargestAirportName(){
         int maxTerminals=0;
 
+        if(!airportDb.isEmpty()){
             for(Airport a:airportDb.values()){
-                maxTerminals=Math.max(maxTerminals,a.getNoOfTerminals());
+                if(a.getNoOfTerminals()!=0) maxTerminals=Math.max(maxTerminals,a.getNoOfTerminals());
             }
+        }
 
+        if(maxTerminals==0) return "NOT FOUND";
         List<String> airportNames=new ArrayList<>();
 
+        if(!airportDb.isEmpty()){
             for(String name:airportDb.keySet()){
                 if(airportDb.get(name).getNoOfTerminals()==maxTerminals) airportNames.add(name);
             }
-
+        }
 
         if(airportNames.size()>1) Collections.sort(airportNames);
-        if(airportNames.size()==0) return null;
+        if(airportNames.isEmpty()) return "NOT FOUND";
         return airportNames.get(0);
     }
 
@@ -165,7 +164,7 @@ public class AirportRepository {
     }
 
     public int calculateRevenueOfAFlight(Integer flightId){
-        if(!flightBookingDb.containsKey(flightId) || flightBookingDb.get(flightId).size()==0) return 0;
+        if(!flightBookingDb.containsKey(flightId) || flightBookingDb.get(flightId).isEmpty()) return 0;
 
         int  n=flightBookingDb.get(flightId).size();
 
