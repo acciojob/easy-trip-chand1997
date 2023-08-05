@@ -37,6 +37,9 @@ POST API
 ![Screenshot (11)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/ccd0c0ca-2683-415e-a998-afe573ae1736)
 
 
+10)@GetMapping("/calculate-revenue-collected/{flightId}")
+![Screenshot (12)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/cac39027-0556-48af-82fa-d7c7927c99a1)
+
 
 
 
