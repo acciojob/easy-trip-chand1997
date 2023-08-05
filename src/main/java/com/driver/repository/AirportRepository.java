@@ -22,6 +22,7 @@ public class AirportRepository {
     HashMap<Integer,Passenger> passengerDb=new HashMap<>();
 
     public boolean addAirport(Airport airport){
+        if(airport==null) return false;
         if(airport.getAirportName()==null || airport.getCity()==null || airport.getNoOfTerminals()==0) return false;
         if(airportDb.containsKey(airport.getAirportName())) return false;
         airportDb.put(airport.getAirportName(),airport);
@@ -71,8 +72,9 @@ public class AirportRepository {
     }
 
     public int getNumberOfPeopleOn( Date date,String airportName){
+        if(date==null || airportName==null) return 0;
         if(!airportDb.containsKey(airportName) || airportDb.get(airportName).getCity()==null) return 0;
-        if(date==null) return 0;
+
         City city=airportDb.get(airportName).getCity();
 
 
@@ -132,6 +134,7 @@ public class AirportRepository {
     }
 
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId){
+        if(passengerId==0) return 0;
         if(!passengerDb.isEmpty() && !passengerDb.containsKey(passengerId)) return 0;
         int totalBookings=0;
 
@@ -148,6 +151,7 @@ public class AirportRepository {
     }
 
     public String addFlight(Flight flight){
+        if(flight==null) return "FAILURE";
        if(flight.getFlightId()==0) return "FAILURE";
        if(flightDb.containsKey(flight.getFlightId())) return "FAILURE";
        flightDb.put(flight.getFlightId(),flight);
@@ -169,6 +173,7 @@ public class AirportRepository {
     }
 
     public int calculateRevenueOfAFlight(Integer flightId){
+        if(flightId==0) return 0;
         if(!flightBookingDb.containsKey(flightId) || flightBookingDb.get(flightId).isEmpty()) return 0;
 
         int  n=flightBookingDb.get(flightId).size();
@@ -182,6 +187,7 @@ public class AirportRepository {
     }
 
     public String addPassenger(Passenger passenger){
+        if(passenger==null) return "FAILURE";
         if(passenger.getPassengerId()==0) return "FAILURE";
         if(passengerDb.containsKey(passenger.getPassengerId())) return "FAILURE";
         passengerDb.put(passenger.getPassengerId(),passenger);
