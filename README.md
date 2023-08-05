@@ -17,5 +17,9 @@ POST API
 ![Screenshot (6)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/b25eca8c-e8be-486f-a81d-6d1ba8edc70a)
 
 
+5) @PostMapping("/add-passenger")
+ ![Screenshot (7)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/e154e704-4870-432f-9aae-d21f8340c557)
+
+
 
 
