@@ -23,6 +23,7 @@ public class AirportRepository {
 
     public boolean addAirport(Airport airport){
         if(airport.getAirportName()==null || airport.getCity()==null || airport.getNoOfTerminals()==0) return false;
+        if(airportDb.containsKey(airport.getAirportName())) return false;
         airportDb.put(airport.getAirportName(),airport);
         return true;
     }
