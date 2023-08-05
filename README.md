@@ -33,4 +33,12 @@ POST API
    ![Screenshot (10)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/dc2b8f6b-6c85-4a6f-bbf4-5d6ecd1e438a)
 
 
+9) @GetMapping("/get-aiportName-from-flight-takeoff/{flightId}")
+![Screenshot (11)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/ccd0c0ca-2683-415e-a998-afe573ae1736)
+
+
+
+
+
+
 
