@@ -29,7 +29,8 @@ POST API
 ![Screenshot (9)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/d7f33c26-fab7-4f96-a942-b3984d7f3976)
 
 
-
+8) @GetMapping("/get-count-of-bookings-done-by-a-passenger/{passengerId}")
+   ![Screenshot (10)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/dc2b8f6b-6c85-4a6f-bbf4-5d6ecd1e438a)
 
 
 
