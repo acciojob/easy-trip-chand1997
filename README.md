@@ -21,5 +21,10 @@ POST API
  ![Screenshot (7)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/e154e704-4870-432f-9aae-d21f8340c557)
 
 
+6)@PostMapping("/book-a-ticket")
+![Screenshot (8)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/9e16c355-a2eb-4dd5-ae50-f20faa20cf72)
+
+
+
 
 
