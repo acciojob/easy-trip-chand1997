@@ -27,86 +27,165 @@ public class AirportRepository {
     HashMap<Integer,Passenger> passengerDb=new HashMap<>();
 
     public void addAirport(Airport airport){
+        if(airport.getAirportName()==null){
+            throw new NullPointerException();
+        }
         airportDb.put(airport.getAirportName(),airport);
     }
 
     public String getLargestAirportName(){
         int maxTerminals=0;
-        for(Airport a:airportDb.values()){
-            maxTerminals=Math.max(maxTerminals,a.getNoOfTerminals());
+        try{
+            for(Airport a:airportDb.values()){
+                maxTerminals=Math.max(maxTerminals,a.getNoOfTerminals());
+            }
+        }catch(Exception e){
+
         }
         List<String> airportNames=new ArrayList<>();
-        for(String name:airportDb.keySet()){
-            if(airportDb.get(name).getNoOfTerminals()==maxTerminals) airportNames.add(name);
+        try{
+            for(String name:airportDb.keySet()){
+                if(airportDb.get(name).getNoOfTerminals()==maxTerminals) airportNames.add(name);
+            }
+        }catch(NullPointerException e){
+
         }
+
         if(airportNames.size()>1) Collections.sort(airportNames);
         return airportNames.get(0);
     }
 
     public double getShortestDurationOfPossibleBetweenTwoCities(City fromCity,City toCity){
         double shortestDuration=Double.MAX_VALUE;
-        for(Flight f: flightDb.values()){
-            if(f.getFromCity().equals(fromCity) && f.getToCity().equals(toCity)){
-                shortestDuration=Math.min(shortestDuration,f.getDuration());
+        try{
+            for(Flight f: flightDb.values()){
+                if(f.getFromCity().equals(fromCity) && f.getToCity().equals(toCity)){
+                    shortestDuration=Math.min(shortestDuration,f.getDuration());
+                }
             }
+
+        }catch (Exception e){
+
         }
+
         if(shortestDuration!=Double.MAX_VALUE) return shortestDuration;
         return -1;
 
     }
 
     public int getNumberOfPeopleOn( Date date,String airportName){
-        City city=airportDb.get(airportName).getCity();
-        int totalPeople=0;
-        for(Flight f: flightDb.values()){
-            if(f.getFlightDate().equals(date)){
-                if(city.equals(f.getFromCity()) || city.equals(f.getToCity())) totalPeople++;
-            }
+        City city=null;
+        try{
+             city=airportDb.get(airportName).getCity();
+        }catch(Exception e){
+
         }
+
+        int totalPeople=0;
+        try{
+            for(Flight f: flightDb.values()){
+                if(f.getFlightDate().equals(date)){
+                    if(city.equals(f.getFromCity()) || city.equals(f.getToCity())) totalPeople++;
+                }
+            }
+
+        }catch(Exception e){
+
+        }
+
         return totalPeople;
     }
 
     public int calculateFlightFare(Integer flightId){
-        return 3000+flightBookingDb.get(flightId).size()*50;
+        int fare=0;
+        try{
+            fare=3000+flightBookingDb.get(flightId).size()*50;
+        }catch(Exception e){
+
+        }
+        return fare;
+
     }
 
     public String bookATicket(Integer flightId,Integer passengerId){
-        if(flightBookingDb.get(flightId).size()>=flightDb.get(flightId).getMaxCapacity()) return "FAILURE";
-        if(flightBookingDb.get(flightId).contains(passengerId))  return "FAILURE";
-        flightBookingDb.get(flightId).add(passengerId);
+        try{
+            if(flightBookingDb.get(flightId).size()>=flightDb.get(flightId).getMaxCapacity()) return "FAILURE";
+        }catch(Exception e){
+
+        }
+        try{
+            if(flightBookingDb.get(flightId).contains(passengerId))  return "FAILURE";
+            flightBookingDb.get(flightId).add(passengerId);
+        }catch(Exception e){
+
+        }
+
+
         return "SUCCESS";
     }
 
     public String cancelATicket(Integer flightId,Integer passengerId){
-        if(!flightBookingDb.get(flightId).contains(passengerId)) return "FAILURE";
-        flightBookingDb.get(flightId).remove(passengerId);
+        try{
+            if(!flightBookingDb.get(flightId).contains(passengerId)) return "FAILURE";
+        }catch(Exception e){
+
+        }
+        try{
+            flightBookingDb.get(flightId).remove(passengerId);
+        }catch(Exception e){
+
+        }
+
+
         return "SUCCESS";
     }
 
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId){
         int totalBookings=0;
-        for(List<Integer> list:flightBookingDb.values()){
-            for(Integer id:list){
-                if(passengerId==id) totalBookings++;
+        try{
+            for(List<Integer> list:flightBookingDb.values()){
+                for(Integer id:list){
+                    if(passengerId==id) totalBookings++;
+                }
             }
+
+        }catch(Exception e){
+
         }
+
         return totalBookings;
     }
 
     public String addFlight(Flight flight){
-        flightDb.put(flight.getFlightId(),flight);
+        try{
+            flightDb.put(flight.getFlightId(),flight);
+        }catch(Exception e){
+
+        }
+
         return "SUCCESS";
     }
 
     public String getAirportNameFromFlightId(Integer flightId){
-        for(Airport airport:airportDb.values()){
-            if(airport.getCity().equals(flightDb.get(flightId).getFromCity())) return airport.getAirportName();
+        try{
+            for(Airport airport:airportDb.values()){
+                if(airport.getCity().equals(flightDb.get(flightId).getFromCity())) return airport.getAirportName();
+            }
+        }catch(Exception e){
+
         }
+
         return null;
     }
 
     public int calculateRevenueOfAFlight(Integer flightId){
-        int n=flightBookingDb.get(flightId).size();
+        int n=0;
+        try{
+            n=flightBookingDb.get(flightId).size();
+        }catch(Exception e){
+
+        }
+
         int totalRevenue=0;
         for(int i=0;i<n;i++){
             totalRevenue+=(3000+i*50);
@@ -115,7 +194,12 @@ public class AirportRepository {
     }
 
     public String addPassenger(Passenger passenger){
-        passengerDb.put(passenger.getPassengerId(),passenger);
+        try{
+            passengerDb.put(passenger.getPassengerId(),passenger);
+        }catch(Exception e){
+
+        }
+
         return "SUCCESS";
     }
 
