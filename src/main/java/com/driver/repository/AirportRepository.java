@@ -116,8 +116,10 @@ public class AirportRepository {
     }
 
     public String cancelATicket(Integer flightId,Integer passengerId){
-        if(!flightDb.containsKey(flightId) || !passengerDb.containsKey(passengerId)) return null;
-        if(!flightBookingDb.containsKey(flightId)) return null;
+        if(flightId==0 || passengerId==0)  return "FAILURE";
+        if(flightDb.isEmpty() || flightBookingDb.isEmpty())  return "FAILURE";
+        if(!flightDb.containsKey(flightId) || !passengerDb.containsKey(passengerId)) return "FAILURE";
+        if(!flightBookingDb.containsKey(flightId)) return "FAILURE";
         if(!flightBookingDb.get(flightId).contains(passengerId)) return "FAILURE";
 
 
@@ -129,13 +131,15 @@ public class AirportRepository {
     }
 
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId){
-        if(!passengerDb.containsKey(passengerId)) return 0;
+        if(!passengerDb.isEmpty() && !passengerDb.containsKey(passengerId)) return 0;
         int totalBookings=0;
 
         if(!flightBookingDb.isEmpty()){
             for(List<Integer> list:flightBookingDb.values()){
-                for(Integer id:list){
-                    if(passengerId==id) totalBookings++;
+                if(!list.isEmpty()){
+                    for(Integer id:list){
+                        if(passengerId==id) totalBookings++;
+                    }
                 }
             }
         }
@@ -144,13 +148,13 @@ public class AirportRepository {
 
     public String addFlight(Flight flight){
        if(flight.getFlightId()==0) return "FAILURE";
-       if(flightDb.containsKey(flight.getFlightId())) return null;
+       if(flightDb.containsKey(flight.getFlightId())) return "FAILURE";
        flightDb.put(flight.getFlightId(),flight);
        return "SUCCESS";
     }
 
     public String getAirportNameFromFlightId(Integer flightId){
-        if(!flightDb.containsKey(flightId)) return null;
+        if(!flightDb.containsKey(flightId)) return "NOT FOUND";
 
         if(!airportDb.isEmpty()){
             for(Airport airport:airportDb.values()){
@@ -160,7 +164,7 @@ public class AirportRepository {
             }
         }
 
-        return null;
+        return "NOT FOUND";
     }
 
     public int calculateRevenueOfAFlight(Integer flightId){
@@ -178,7 +182,7 @@ public class AirportRepository {
 
     public String addPassenger(Passenger passenger){
         if(passenger.getPassengerId()==0) return "FAILURE";
-        if(passengerDb.containsKey(passenger.getPassengerId())) return null;
+        if(passengerDb.containsKey(passenger.getPassengerId())) return "FAILURE";
         passengerDb.put(passenger.getPassengerId(),passenger);
         return "SUCCESS";
     }
