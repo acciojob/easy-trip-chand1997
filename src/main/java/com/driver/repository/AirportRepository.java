@@ -27,7 +27,7 @@ public class AirportRepository {
     HashMap<Integer,Passenger> passengerDb=new HashMap<>();
 
     public boolean addAirport(Airport airport){
-        if(airport.getAirportName()==null) return false;
+        if(airport.getAirportName()==null || airport.getCity()==null || airport.getNoOfTerminals()==0) return false;
         airportDb.put(airport.getAirportName(),airport);
         return true;
     }
@@ -55,16 +55,15 @@ public class AirportRepository {
         if(fromCity==null || toCity==null) return 0;
         double shortestDuration=Double.MAX_VALUE;
 
+        if(!flightDb.isEmpty()){
             for(Flight f: flightDb.values()){
                 if(f.getToCity()!=null && f.getFromCity()!=null){
                     if(f.getFromCity().equals(fromCity) && f.getToCity().equals(toCity)){
                         shortestDuration=Math.min(shortestDuration,f.getDuration());
                     }
                 }
-
             }
-
-
+        }
 
         if(shortestDuration!=Double.MAX_VALUE) return shortestDuration;
         return -1;
@@ -79,12 +78,15 @@ public class AirportRepository {
 
         int totalPeople=0;
 
+        if(!flightDb.isEmpty()){
             for(Flight f: flightDb.values()){
                 if(f.getFlightDate()!=null && f.getFlightDate().equals(date)){
                     if((f.getFromCity()!=null && city.equals(f.getFromCity())) ||
                             (f.getToCity()!=null && city.equals(f.getToCity()))) totalPeople++;
                 }
             }
+        }
+
 
 
         return totalPeople;
@@ -117,10 +119,10 @@ public class AirportRepository {
     public String cancelATicket(Integer flightId,Integer passengerId){
         if(!flightDb.containsKey(flightId) || !passengerDb.containsKey(passengerId)) return null;
 
-            if(!flightBookingDb.get(flightId).contains(passengerId)) return "FAILURE";
+        if(!flightBookingDb.get(flightId).contains(passengerId)) return "FAILURE";
 
 
-            flightBookingDb.get(flightId).remove(passengerId);
+        flightBookingDb.get(flightId).remove(passengerId);
 
 
 
@@ -131,19 +133,19 @@ public class AirportRepository {
         if(!passengerDb.containsKey(passengerId)) return 0;
         int totalBookings=0;
 
+        if(!flightBookingDb.isEmpty()){
             for(List<Integer> list:flightBookingDb.values()){
                 for(Integer id:list){
                     if(passengerId==id) totalBookings++;
                 }
             }
-
-
-
+        }
         return totalBookings;
     }
 
     public String addFlight(Flight flight){
        if(flight.getFlightId()==0) return "FAILURE";
+       if(flightDb.containsKey(flight.getFlightId())) return null;
        flightDb.put(flight.getFlightId(),flight);
        return "SUCCESS";
     }
@@ -151,12 +153,13 @@ public class AirportRepository {
     public String getAirportNameFromFlightId(Integer flightId){
         if(!flightDb.containsKey(flightId)) return null;
 
+        if(!airportDb.isEmpty()){
             for(Airport airport:airportDb.values()){
                 City c=airport.getCity();
                 City fromCity=flightDb.get(flightId).getFromCity();
                 if(c!=null && fromCity!=null && c.equals(fromCity)) return airport.getAirportName();
             }
-
+        }
 
         return null;
     }
@@ -176,7 +179,7 @@ public class AirportRepository {
 
     public String addPassenger(Passenger passenger){
         if(passenger.getPassengerId()==0) return "FAILURE";
-
+        if(passengerDb.containsKey(passenger.getPassengerId())) return null;
         passengerDb.put(passenger.getPassengerId(),passenger);
 
 
