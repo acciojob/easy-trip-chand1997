@@ -42,6 +42,8 @@ POST API
 
 
 11)@GetMapping("/get-number-of-people-on-airport-on/{date}")
+![Screenshot (14)](https://github.com/acciojob/easy-trip-chand1997/assets/95063529/797535c6-f207-41b5-abe4-450e7d200ab3)
+
 
 
 
