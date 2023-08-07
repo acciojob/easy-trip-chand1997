@@ -71,23 +71,32 @@ public class AirportRepository {
 
     }
 
-    public int getNumberOfPeopleOn( Date date,String airportName){
+   public int getNumberOfPeopleOn(Date date,String airportName){
+        System.out.println(date+" "+airportName);
         if(date==null || airportName==null) return 0;
         if(!airportDb.containsKey(airportName) || airportDb.get(airportName).getCity()==null) return 0;
 
         City city=airportDb.get(airportName).getCity();
 
+        String d1=date.toString().substring(0,10) + date.toString().substring(23,date.toString().length());
+
 
         int totalPeople=0;
 
-        if(!flightDb.isEmpty()){
+        if(flightDb.isEmpty()) return 0;
             for(Flight f: flightDb.values()){
-                if(f.getFlightDate()!=null && f.getFlightDate().equals(date)){
-                    if((f.getFromCity()!=null && city.equals(f.getFromCity())) ||
-                            (f.getToCity()!=null && city.equals(f.getToCity()))) totalPeople++;
+                if(f.getFlightDate()!=null){
+                    Date datee=f.getFlightDate();
+                     String d2=datee.toString().substring(0,10) + datee.toString().substring(23,datee.toString().length());
+                    if(d1.equals(d2)){
+                        if((f.getFromCity()!=null && city.equals(f.getFromCity())) ||
+                                (f.getToCity()!=null && city.equals(f.getToCity())))
+                            totalPeople+=flightBookingDb.get(f.getFlightId()).size();
+                    }
+
                 }
             }
-        }
+
 
 
 
