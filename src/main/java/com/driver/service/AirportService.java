@@ -18,7 +18,7 @@ public class AirportService {
 
 
     @Autowired
-    AirportRepository airportRepository;
+    AirportRepository airportRepository=new AirportRepository();
 
     public boolean addAirport(Airport airport){
        return airportRepository.addAirport(airport);
