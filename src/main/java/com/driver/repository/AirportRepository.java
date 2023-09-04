@@ -168,7 +168,7 @@ public class AirportRepository {
     }
 
     public String getAirportNameFromFlightId(Integer flightId){
-        if(!flightDb.containsKey(flightId)) return "NOT FOUND";
+        if(!flightDb.containsKey(flightId)) return null;
 
         if(!airportDb.isEmpty()){
             for(Airport airport:airportDb.values()){
@@ -178,7 +178,7 @@ public class AirportRepository {
             }
         }
 
-        return "NOT FOUND";
+        return null;
     }
 
     public int calculateRevenueOfAFlight(Integer flightId){
